@@ -1,6 +1,9 @@
 import 'package:capitals_app/bloc/capitals_bloc.dart';
 import 'package:capitals_app/data/capital.dart';
 import 'package:capitals_app/screens/home/widgets/capital_card.dart';
+import 'package:capitals_app/shared/empty.dart';
+import 'package:capitals_app/shared/error.dart';
+import 'package:capitals_app/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,21 +37,27 @@ class _HomeScreenState extends State<HomeScreen> {
       body: StreamBuilder<List<Capital>>(
           stream: capitalsBloc.capitals,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            List<Capital> capitals;
+            List<Capital> capitals = [];
             if (snapshot.hasData) {
               capitals = snapshot.data;
+            } else if (snapshot.hasError) {
+              return Error();
+            } else {
+              return Loading();
             }
 
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                  itemCount: capitals != null ? capitals.length : 0,
-                  itemBuilder: (context, index) {
-                    return CapitalCard(
-                      capital: capitals[index],
-                    );
-                  }),
-            );
+            return capitals.length == 0
+                ? Empty()
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                        itemCount: capitals.length,
+                        itemBuilder: (context, index) {
+                          return CapitalCard(
+                            capital: capitals[index],
+                          );
+                        }),
+                  );
           }),
     );
   }
