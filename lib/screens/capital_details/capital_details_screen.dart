@@ -35,7 +35,11 @@ class _CapitalDetailsScreenState extends State<CapitalDetailsScreen> {
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                   child: Text(
                     capitalDetailsBloc.capital.name,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 38,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -63,21 +67,28 @@ class _CapitalDetailsScreenState extends State<CapitalDetailsScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 160,
+                  height: 130,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
                   child: Text(
-                    "LIKES",
+                    'LIKES',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
+                      padding: const EdgeInsets.only(left: 16.0, bottom: 4),
                       child: Text(
                         capitalDetailsBloc.capital.likes.toString(),
+                        style: TextStyle(
+                          fontSize: 40,
+                        ),
                       ),
                     ),
                     Padding(
@@ -105,10 +116,15 @@ class _CapitalDetailsScreenState extends State<CapitalDetailsScreen> {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: RichText(
+                    textAlign: TextAlign.justify,
                     text: TextSpan(children: [
                       TextSpan(
                         text: capitalDetailsBloc.capital.details,
-                        style: TextStyle(color: Colors.black87),
+                        style: TextStyle(
+                          color: Colors.black87,
+                          letterSpacing: 0.5,
+                          fontSize: 17,
+                        ),
                       ),
                     ]),
                   ),

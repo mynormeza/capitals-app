@@ -5,6 +5,7 @@ import 'package:capitals_app/screens/home/widgets/capital_card.dart';
 import 'package:capitals_app/shared/empty.dart';
 import 'package:capitals_app/shared/error.dart';
 import 'package:capitals_app/shared/loading.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,7 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista de capitales'),
+        title: Text(
+          'Lista de capitales',
+          style: TextStyle(
+            color: Colors.black87,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: StreamBuilder<List<Capital>>(
           stream: capitalsBloc.capitals,

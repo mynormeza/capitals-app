@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 
         return MaterialApp(
           theme: ThemeData(
-            primarySwatch: Colors.orange,
+            fontFamily: 'ProximaNova',
             scaffoldBackgroundColor: "#E5E5E5".toColor(),
             appBarTheme: AppBarTheme(
               color: "#E5E5E5".toColor(),

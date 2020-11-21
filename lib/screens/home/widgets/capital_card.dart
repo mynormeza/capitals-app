@@ -37,12 +37,27 @@ class CapitalCard extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(10),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Expanded(child: Text(capital.name)),
+                  Expanded(
+                    child: Text(
+                      capital.name,
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(capital.likes.toString()),
+                    child: Text(
+                      capital.likes.toString(),
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                   Icon(Icons.thumb_up_alt_outlined),
                 ],
