@@ -18,7 +18,7 @@ class CapitalsBloc {
   StreamSink<List<Capital>> get capitalsSink => _capitalsStreamController.sink;
 
   Future getCapitals() async {
-    List<Capital> capitals;
+    List<Capital> capitals = [];
     QuerySnapshot querySnapshot = await capitalsCollection.get();
     querySnapshot.docs.forEach((doc) {
       capitals.add(Capital.fromSnapshot(doc));
