@@ -1,3 +1,5 @@
+import 'package:capitals_app/extensions/global.dart';
+import 'package:capitals_app/screens/capital_details/capital_details_screen.dart';
 import 'package:capitals_app/screens/home/home_screen.dart';
 import 'package:capitals_app/shared/error.dart';
 import 'package:capitals_app/shared/loading.dart';
@@ -27,7 +29,18 @@ class MyApp extends StatelessWidget {
         }
 
         return MaterialApp(
+          theme: ThemeData(
+            primarySwatch: Colors.orange,
+            scaffoldBackgroundColor: "#E5E5E5".toColor(),
+            appBarTheme: AppBarTheme(
+              color: "#E5E5E5".toColor(),
+              elevation: 0,
+            ),
+          ),
           home: showAsHome,
+          routes: {
+            CapitalDetailsScreen.routeName: (context) => CapitalDetailsScreen()
+          },
         );
       },
     );
