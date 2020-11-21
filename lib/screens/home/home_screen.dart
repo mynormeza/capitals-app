@@ -1,5 +1,6 @@
 import 'package:capitals_app/bloc/capitals_bloc.dart';
 import 'package:capitals_app/data/capital.dart';
+import 'package:capitals_app/screens/capital_details/capital_details_screen.dart';
 import 'package:capitals_app/screens/home/widgets/capital_card.dart';
 import 'package:capitals_app/shared/empty.dart';
 import 'package:capitals_app/shared/error.dart';
@@ -51,14 +52,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 : Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.builder(
-                        itemCount: capitals.length,
-                        itemBuilder: (context, index) {
-                          return CapitalCard(
-                            capital: capitals[index],
-                          );
-                        }),
+                      itemCount: capitals.length,
+                      itemBuilder: (context, index) {
+                        return CapitalCard(
+                          capital: capitals[index],
+                          openDetails: openDetails,
+                        );
+                      },
+                    ),
                   );
           }),
     );
+  }
+
+  void openDetails(Capital capital) {
+    Navigator.pushNamed(
+      context,
+      CapitalDetailsScreen.routeName,
+      arguments: capital,
+    ).then((value) => capitalsBloc.getCapitals());
   }
 }

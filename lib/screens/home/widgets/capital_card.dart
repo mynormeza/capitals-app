@@ -1,22 +1,18 @@
 import 'package:capitals_app/data/capital.dart';
-import 'package:capitals_app/screens/capital_details/capital_details_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CapitalCard extends StatelessWidget {
   final Capital capital;
+  final Function openDetails;
 
-  CapitalCard({this.capital});
+  CapitalCard({this.capital, this.openDetails});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          CapitalDetailsScreen.routeName,
-          arguments: capital,
-        );
+        openDetails(capital);
       },
       child: Container(
         decoration: BoxDecoration(

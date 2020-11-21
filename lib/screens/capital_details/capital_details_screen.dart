@@ -1,20 +1,28 @@
-import 'package:capitals_app/data/capital.dart';
+import 'package:capitals_app/bloc/capital_details_bloc.dart';
 import 'package:capitals_app/screens/capital_details/widgets/capital_details_background.dart';
 import 'package:flutter/material.dart';
 
-class CapitalDetailsScreen extends StatelessWidget {
+class CapitalDetailsScreen extends StatefulWidget {
   static const String routeName = '/capital-details';
 
   @override
+  _CapitalDetailsScreenState createState() => _CapitalDetailsScreenState();
+}
+
+class _CapitalDetailsScreenState extends State<CapitalDetailsScreen> {
+  @override
   Widget build(BuildContext context) {
-    final Capital args = ModalRoute.of(context).settings.arguments;
+    final CapitalDetailsBloc capitalDetailsBloc = CapitalDetailsBloc(
+      capital: ModalRoute.of(context).settings.arguments,
+    );
     final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
           CapitalDetailsBackground(
-            imageUrl: args.imageUrl,
+            imageUrl: capitalDetailsBloc.capital.imageUrl,
           ),
           SingleChildScrollView(
             child: Column(
@@ -26,7 +34,7 @@ class CapitalDetailsScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                   child: Text(
-                    args.name,
+                    capitalDetailsBloc.capital.name,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -47,7 +55,7 @@ class CapitalDetailsScreen extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          'Capital de ${args.country}',
+                          'Capital de ${capitalDetailsBloc.capital.country}',
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
@@ -69,14 +77,25 @@ class CapitalDetailsScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0),
                       child: Text(
-                        args.likes.toString(),
+                        capitalDetailsBloc.capital.likes.toString(),
                       ),
                     ),
                     Padding(
                         padding: const EdgeInsets.all(8),
-                        child: Icon(
-                          Icons.thumb_up,
-                          size: 50,
+                        child: GestureDetector(
+                          onTap: () async {
+                            var isSaved =
+                                await capitalDetailsBloc.incrementLike();
+                            if (isSaved) {
+                              setState(() {
+                                capitalDetailsBloc.capital.likes++;
+                              });
+                            }
+                          },
+                          child: Icon(
+                            Icons.thumb_up,
+                            size: 50,
+                          ),
                         )),
                   ],
                 ),
@@ -88,8 +107,8 @@ class CapitalDetailsScreen extends StatelessWidget {
                   child: RichText(
                     text: TextSpan(children: [
                       TextSpan(
-                        text: args.details,
-                        style: TextStyle(color: Colors.blue),
+                        text: capitalDetailsBloc.capital.details,
+                        style: TextStyle(color: Colors.black87),
                       ),
                     ]),
                   ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Capital {
+  final String id;
   final String name;
   final String imageUrl;
   final String country;
@@ -8,6 +9,7 @@ class Capital {
   int likes;
 
   Capital({
+    this.id,
     this.name,
     this.imageUrl,
     this.likes,
@@ -17,6 +19,7 @@ class Capital {
 
   static Capital fromSnapshot(QueryDocumentSnapshot doc) {
     return Capital(
+      id: doc.id,
       name: doc['name'],
       imageUrl: doc['imageUrl'],
       likes: doc['likes'],
