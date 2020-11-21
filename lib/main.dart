@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'ProximaNova',
             scaffoldBackgroundColor: "#E5E5E5".toColor(),
             appBarTheme: AppBarTheme(
-              color: "#E5E5E5".toColor(),
+              color: Colors.white,
               elevation: 0,
             ),
           ),

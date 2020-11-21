@@ -10,16 +10,17 @@ class CapitalsBloc {
 
   final _capitalsStreamController = StreamController<List<Capital>>.broadcast();
   CapitalsBloc() {
-    getCapitals();
     _capitalsStreamController.stream.listen(returnCapitals);
   }
 
   Stream<List<Capital>> get capitals => _capitalsStreamController.stream;
   StreamSink<List<Capital>> get capitalsSink => _capitalsStreamController.sink;
 
-  Future getCapitals() async {
+  Future getCapitals(bool isAscOrder) async {
     List<Capital> capitals = [];
-    QuerySnapshot querySnapshot = await capitalsCollection.get();
+    QuerySnapshot querySnapshot = await capitalsCollection
+        .orderBy('likes', descending: !isAscOrder)
+        .get();
     querySnapshot.docs.forEach((doc) {
       capitals.add(Capital.fromSnapshot(doc));
     });

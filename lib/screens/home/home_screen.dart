@@ -17,10 +17,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   CapitalsBloc capitalsBloc;
+  bool _isAscOrder = true;
 
   @override
   void initState() {
     capitalsBloc = CapitalsBloc();
+    capitalsBloc.getCapitals(_isAscOrder);
     super.initState();
   }
 
@@ -41,6 +43,26 @@ class _HomeScreenState extends State<HomeScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          FlatButton.icon(
+            onPressed: () {
+              setState(() {
+                _isAscOrder = !_isAscOrder;
+              });
+              capitalsBloc.getCapitals(_isAscOrder);
+            },
+            icon: Icon(
+              Icons.sort,
+              color: Colors.black87,
+            ),
+            label: Text(
+              _isAscOrder ? 'ASC' : 'DES',
+              style: TextStyle(
+                color: Colors.black87,
+              ),
+            ),
+          )
+        ],
       ),
       body: StreamBuilder<List<Capital>>(
           stream: capitalsBloc.capitals,
@@ -58,7 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? Empty()
                 : Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListView.builder(
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: 10,
+                      ),
                       itemCount: capitals.length,
                       itemBuilder: (context, index) {
                         return CapitalCard(
@@ -77,6 +102,6 @@ class _HomeScreenState extends State<HomeScreen> {
       context,
       CapitalDetailsScreen.routeName,
       arguments: capital,
-    ).then((value) => capitalsBloc.getCapitals());
+    ).then((value) => capitalsBloc.getCapitals(_isAscOrder));
   }
 }
